@@ -52,6 +52,9 @@ export LD_LIBRARY_PATH="${MONO_LN_DIR}/lib:${LD_LIBRARY_PATH}"
 echo ${PATH}
 echo ${LD_LIBRARY_PATH}
 
+echo "-----> STEP: Importing certificates from OS."
+cert-sync "/etc/ssl/certs/ca-certificates.crt"
+
 echo "-----> STEP: Checking the installation and version."
 mono --version
 
