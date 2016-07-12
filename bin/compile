@@ -58,15 +58,15 @@ cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
 echo "-----> STEP: Checking the installation and version."
 mono --version
 
-echo "-----> PRE: Downloading nuget at: ${NUGET_INSTALL_PATH}"
+echo "-----> STEP: Downloading nuget at: ${NUGET_INSTALL_PATH}"
 mkdir -p "${NUGET_INSTALL_PATH}"
 cd ${NUGET_INSTALL_PATH}
 wget -c ${NUGET_DOWNLOAD_URL} && chmod +x nuget.exe
 
-echo "-----> PRE: Installing project dependencies"
+echo "-----> STEP: Installing project dependencies"
 cd ${BUILD_DIR}
 mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
 
-echo "-----> PRE: Compiling project"
+echo "-----> STEP: Compiling project"
 cd ${BUILD_DIR}
 xbuild /p:Configuration=Release
