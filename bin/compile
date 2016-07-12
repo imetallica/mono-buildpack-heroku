@@ -19,10 +19,10 @@ echo "-----> STEP 0: Downloading Mono."
 wget ${MONO_DOWNLOAD_PATH} 
 mkdir -p ${MONO_BUILD_PATH}
 mv *.tar.bz2 ${MONO_BUILD_PATH}
-cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2 --strip 1"
+cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
 echo "-----> STEP 1: Compiling Mono using monolite."
-cd ${MONO_BUILD_PATH}
+cd "${MONO_BUILD_PATH}/mono-4.4.1"
 ./configure --PREFIX=${MONO_INSTALL_PATH}
 make get-monolite-latest
 make
