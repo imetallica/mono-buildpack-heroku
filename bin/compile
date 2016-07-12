@@ -67,6 +67,6 @@ echo "-----> PRE: Installing project dependencies"
 cd ${BUILD_DIR}
 mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
 
-#echo "-----> PRE: Compiling project"
-#cd ${BUILD_PATH}
-#xbuild /p:Configuration=Release
+echo "-----> PRE: Compiling project"
+cd ${BUILD_DIR}
+xbuild /p:Configuration=Release
