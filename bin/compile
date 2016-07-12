@@ -20,7 +20,7 @@ MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
 
 echo "-----> PRE: Checking if mono already exists."
-if [ 1=1 ]; then  # ! -d ${MONO_BUILD_PATH}
+if [ ! -d ${MONO_BUILD_PATH} ]; then
   echo "-----> Mono wasn't downloaded. Downloading."
   echo "-----> PRE: Clearing cache files."
   rm -rf ${CACHE_DIR}/*
@@ -63,11 +63,13 @@ cd ${TEMP_NUGET_PATH}
 wget -c ${NUGET_DOWNLOAD_URL} && chmod +x nuget.exe
 
 echo "-----> PRE: Installing project dependencies"
-cd ${BUILD_PATH}
-ls -alr
-echo "------"
-ls -alr ${HOME}
-#mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
+cd ${BUILD_DIR}
+echo pwd
+cd "/app"
+echo pwd
+cd ${HOME}
+echo pwd
+#mono "${TEMP_NUGET_PATH}/nuget.exe" restore
 
 #echo "-----> PRE: Compiling project"
 #cd ${BUILD_PATH}
