@@ -17,9 +17,9 @@ rm -rf ${CACHE_DIR}/*
 
 echo "-----> STEP 0: Downloading Mono."
 wget ${MONO_DOWNLOAD_PATH} 
-mkdir ${MONO_BUILD_PATH}
+mkdir -p ${MONO_BUILD_PATH}
 mv *.tar.bz2 ${MONO_BUILD_PATH}
-tar xjvf - -C ${MONO_BUILD_PATH}
+cd ${MONO_BUILD_PATH} && tar xjvf "${MONO_VERSION}.tar.bz2"
 
 echo "-----> STEP 1: Compiling Mono using monolite."
 cd ${MONO_BUILD_PATH}
