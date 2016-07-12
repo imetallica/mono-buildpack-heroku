@@ -61,4 +61,4 @@ mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
 
 echo "-----> PRE: Compiling project"
 cd ${BUILD_PATH}
-xbuild 
+xbuild /p:Configuration=Release
