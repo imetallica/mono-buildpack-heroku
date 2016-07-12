@@ -5,4 +5,5 @@ cat << EOF
 config_vars: 
   PATH: "/app/mono/bin:/usr/bin/:/bin" 
   LD_LIBRARY_PATH: "/app/mono/lib:/usr/lib/:/lib"
+  PKG_CONFIG_PATH: "/app/mono/lib/pkgconfig"
 EOF
