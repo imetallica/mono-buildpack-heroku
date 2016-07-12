@@ -14,7 +14,7 @@ echo "-----> ENV DIR: ${ENV_DIR}"
 export MONO_VERSION="mono-4.4.1.0"
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
 MONO_INSTALL_PATH="${CACHE_DIR}/rel/mono"
-NUGET_INSTALL_PATH="${CACHE_DIR}/rel/nuget"
+NUGET_INSTALL_PATH="${BUILD_DIR}/.nuget"
 
 MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
@@ -55,21 +55,13 @@ echo ${LD_LIBRARY_PATH}
 echo "-----> STEP: Checking the installation and version."
 mono --version
 
-echo "-----> PRE: Downloading nuget"
-TEMP_NUGET_PATH="/app/.nuget"
-
-mkdir -p "${TEMP_NUGET_PATH}"
-cd ${TEMP_NUGET_PATH}
+echo "-----> PRE: Downloading nuget at: ${NUGET_INSTALL_PATH}"
+mkdir -p "${NUGET_INSTALL_PATH}"
+cd ${NUGET_INSTALL_PATH}
 wget -c ${NUGET_DOWNLOAD_URL} && chmod +x nuget.exe
 
 echo "-----> PRE: Installing project dependencies"
 cd ${BUILD_DIR}
-pwd
-ls -alr
-cd "/app"
-pwd
-ls -alr
-cd ${HOME}
 pwd
 ls -alr
 #mono "${TEMP_NUGET_PATH}/nuget.exe" restore
