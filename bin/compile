@@ -36,6 +36,7 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
 fi
 
 echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
+cd "${MONO_BUILD_PATH}/mono-4.4.1"
 make install
 
 echo "-----> STEP: Setting the path."
