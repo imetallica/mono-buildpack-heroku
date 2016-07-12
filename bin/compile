@@ -30,14 +30,14 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   mkdir -p ${MONO_BUILD_PATH}
   mv *.tar.bz2 ${MONO_BUILD_PATH}
   cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
-  
-  echo "-----> STEP: (Re)Compiling Mono using monolite."
-  cd "${MONO_BUILD_PATH}/mono-4.4.1"
-  ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
-  make get-monolite-latest
-  make
 
 fi
+
+echo "-----> STEP: (Re)Compiling Mono using monolite."
+cd "${MONO_BUILD_PATH}/mono-4.4.1"
+./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
+make get-monolite-latest
+make
 
 echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
