@@ -13,8 +13,8 @@ echo "-----> ENV DIR: ${ENV_DIR}"
 
 export MONO_VERSION="mono-4.4.1.0"
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
-MONO_INSTALL_PATH="${CACHE_DIR}/vendor/mono"
-NUGET_INSTALL_PATH="${CACHE_DIR}/vendor/nuget"
+MONO_INSTALL_PATH="${CACHE_DIR}/rel/mono"
+NUGET_INSTALL_PATH="${CACHE_DIR}/rel/nuget"
 
 MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
@@ -34,14 +34,14 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   echo "-----> STEP: (Re)Compiling Mono using monolite."
   cd "${MONO_BUILD_PATH}/mono-4.4.1"
   ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
-  make -s get-monolite-latest
-  make -s
+  make get-monolite-latest
+  make
 
 fi
 
 echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
-make -s install
+make install
 
 echo "-----> STEP: Setting the path."
 export PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
