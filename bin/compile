@@ -20,7 +20,7 @@ MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
 
 echo "-----> PRE: Checking if mono already exists."
-if [ ! -d ${MONO_BUILD_PATH} ]; then  
+if [ 1=1 ]; then  # ! -d ${MONO_BUILD_PATH}
   echo "-----> Mono wasn't downloaded. Downloading."
   echo "-----> PRE: Clearing cache files."
   rm -rf ${CACHE_DIR}/*
@@ -31,17 +31,16 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   mv *.tar.bz2 ${MONO_BUILD_PATH}
   cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
+  echo "-----> STEP: (Re)Compiling Mono using monolite."
+  cd "${MONO_BUILD_PATH}/mono-4.4.1"
+  ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
+  make --silent get-monolite-latest
+  make --silent
 fi
-
-echo "-----> STEP: (Re)Compiling Mono using monolite."
-cd "${MONO_BUILD_PATH}/mono-4.4.1"
-./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
-make get-monolite-latest
-make
 
 echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
-make install
+make --silent install
 
 echo "-----> STEP: Setting the path."
 export PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
