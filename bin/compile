@@ -14,41 +14,41 @@ MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION
 NUGET_DOWNLOAD_BINARY_PATH="https://www.nuget.org/nuget.exe"
 
 echo "-----> PRE: Checking if mono already exists."
-command --version mono >/dev/null 2>&1 || { 
-  echo "Mono it's not installed. Compiling." >&2; 
-  echo "-----> PRE: Clearing cache files.";
-  rm -rf ${CACHE_DIR}/*;
+if [! -d ${MONO_INSTALL_PATH}]; then  
+  echo "-----> Mono it's not installed. Compiling."
+  echo "-----> PRE: Clearing cache files."
+  rm -rf ${CACHE_DIR}/*
 
-  echo "-----> STEP 0: Downloading Mono.";
-  wget -c ${MONO_DOWNLOAD_PATH};
-  mkdir -p ${MONO_BUILD_PATH};
-  mv *.tar.bz2 ${MONO_BUILD_PATH};
-  cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2";
+  echo "-----> STEP 0: Downloading Mono."
+  wget -c ${MONO_DOWNLOAD_PATH}
+  mkdir -p ${MONO_BUILD_PATH}
+  mv *.tar.bz2 ${MONO_BUILD_PATH}
+  cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
-  echo "-----> STEP 1: Compiling Mono using monolite.";
-  cd "${MONO_BUILD_PATH}/mono-4.4.1";
-  ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no;
-  make get-monolite-latest;
-  make;
+  echo "-----> STEP 1: Compiling Mono using monolite."
+  cd "${MONO_BUILD_PATH}/mono-4.4.1"
+  ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
+  make get-monolite-latest
+  make
 
-  echo "-----> STEP 2: Installing Mono at ${MONO_INSTALL_PATH}";
-  make install;
+  echo "-----> STEP 2: Installing Mono at ${MONO_INSTALL_PATH}"
+  make install
 
-  echo "-----> STEP 3: Setting the path.";
-  export PATH="${MONO_INSTALL_PATH}/bin:${PATH}";
-  export LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}";
+  echo "-----> STEP 3: Setting the path."
+  export PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
+  export LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
 
-  echo ${PATH};
-  echo ${LD_LIBRARY_PATH};
+  echo ${PATH}
+  echo ${LD_LIBRARY_PATH}
 
-  echo "-----> STEP 4: Checking the installation and version.";
-  mono --version;
+  echo "-----> STEP 4: Checking the installation and version."
+  mono --version
 
-  echo "-----> STEP 5: Cleaning build";
-  cd "${MONO_BUILD_PATH}/mono-4.4.1";
-  make clean;
-  cd .. && rm -rf mono-4.4.1;
-}
+  echo "-----> STEP 5: Cleaning build"
+  cd "${MONO_BUILD_PATH}/mono-4.4.1"
+  make clean
+  cd .. && rm -rf mono-4.4.1
+fi
 
 echo "-----> PRE: Downloading nuget"
 mkdir -p ${NUGET_INSTALL_PATH}
