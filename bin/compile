@@ -6,7 +6,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 MONO_VERSION="mono-4.4.1.0"
-MONO_BUILD_PATH="${CACHE_DIR}/obj/${MONO_VERSION}"
+MONO_BUILD_PATH="${CACHE_DIR}/obj"
 MONO_INSTALL_PATH="${CACHE_DIR}/mono"
 
 MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
@@ -22,8 +22,8 @@ mv *.tar.bz2 ${MONO_BUILD_PATH}
 cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
 echo "-----> STEP 1: Compiling Mono using monolite."
-cd ${MONO_BUILD_PATH}
-./configure --PREFIX=${CACHE_DIR}/mono
+cd ${MONO_BUILD_PATH}/${MONO_VERSION}
+./configure --PREFIX=${MONO_INSTALL_PATH}
 make get-monolite-latest
 make
 make install
