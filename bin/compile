@@ -79,7 +79,7 @@ cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
 echo "-----> STEP: Checking the installation and version."
 mono --version
 
-if [ ! -d "${FSHARP_BUILD_PATH}" ]; then
+if [ ! -d ${FSHARP_BUILD_PATH} ]; then
   echo "-----> STEP: Download F# at ${MONO_BUILD_PATH}"
   cd "${MONO_BUILD_PATH}"
   wget -c "${FSHARP_DOWNLOAD_URL}"
