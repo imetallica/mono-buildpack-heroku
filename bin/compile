@@ -55,7 +55,16 @@ export LD_LIBRARY_PATH="${MONO_LN_DIR}/lib:${LD_LIBRARY_PATH}"
 echo ${PATH}
 echo ${LD_LIBRARY_PATH}
 
+echo "-----> STEP: Importing certificates from OS."
+cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
+
+echo "-----> STEP: Checking the installation and version."
+mono --version
+
 if [ ! -d "${FSHARP_BUILD_PATH}" ]; then
+  PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
+  LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
+  
   echo "-----> STEP: Download F# at ${MONO_BUILD_PATH}"
   cd "${MONO_BUILD_PATH}"
   wget -c "https://github.com/fsharp/fsharp/archive/${FSHARP_VERSION}.zip"
@@ -70,12 +79,6 @@ fi
 echo "Installing F# at ${MONO_INSTALL_PATH}"
 cd ${FSHARP_BUILD_PATH}
 make install
-
-echo "-----> STEP: Importing certificates from OS."
-cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
-
-echo "-----> STEP: Checking the installation and version."
-mono --version
 
 echo "-----> STEP: Downloading nuget at: ${NUGET_INSTALL_PATH}"
 mkdir -p "${NUGET_INSTALL_PATH}"
