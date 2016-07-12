@@ -5,9 +5,9 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-MONO_VERSION = "mono-4.4.1.0"
-MONO_BUILD_PATH = "${CACHE_DIR}/obj/${MONO_VERSION}"
-MONO_INSTALL_PATH = "${CACHE_DIR}/mono"
+MONO_VERSION="mono-4.4.1.0"
+MONO_BUILD_PATH="${CACHE_DIR}/obj/${MONO_VERSION}"
+MONO_INSTALL_PATH="${CACHE_DIR}/mono"
 
 MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
 NUGET_BINARY="https://www.nuget.org/nuget.exe"
