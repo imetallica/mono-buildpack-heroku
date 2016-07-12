@@ -12,7 +12,10 @@ echo "-----> CACHE DIR: ${CACHE_DIR}"
 echo "-----> ENV DIR: ${ENV_DIR}"
 
 export MONO_VERSION="mono-4.4.1.0"
+export FSHARP_VERSION="4.0.1.1"
+
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
+FSHARP_BUILD_PATH="${MONO_BUILD_PATH}/fsharp-${FSHARP_VERSION}"
 MONO_INSTALL_PATH="${CACHE_DIR}/rel/mono"
 NUGET_INSTALL_PATH="${BUILD_DIR}/.nuget"
 
@@ -51,6 +54,22 @@ export LD_LIBRARY_PATH="${MONO_LN_DIR}/lib:${LD_LIBRARY_PATH}"
 
 echo ${PATH}
 echo ${LD_LIBRARY_PATH}
+
+if [ ! -d "${FSHARP_BUILD_PATH}" ]; then
+  echo "-----> STEP: Download F# at ${MONO_BUILD_PATH}"
+  cd "${MONO_BUILD_PATH}"
+  wget -c "https://github.com/fsharp/fsharp/archive/${FSHARP_VERSION}.zip"
+  unzip "*.zip"
+  
+  echo "-----> STEP: Compiling F#"
+  cd ${FSHARP_BUILD_PATH}
+  ./autogen.sh --prefix="${MONO_INSTALL_PATH}"
+  make --silent
+fi
+
+echo "Installing F# at ${MONO_INSTALL_PATH}"
+cd ${FSHARP_BUILD_PATH}
+make install
 
 echo "-----> STEP: Importing certificates from OS."
 cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
