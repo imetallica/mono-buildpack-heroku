@@ -16,10 +16,13 @@ echo "-----> PRE: Clearing cache files."
 rm -rf ${CACHE_DIR}/*
 
 echo "-----> STEP 0: Downloading Mono."
-curl -L ${MONO_DOWNLOAD_PATH} -s | tar xjvf - -C ${CACHE_DIR}/obj/${MONO_VERSION}
+wget ${MONO_DOWNLOAD_PATH} 
+mkdir ${MONO_BUILD_PATH}
+mv *.tar.bz2 ${MONO_BUILD_PATH}
+tar xjvf - -C ${MONO_BUILD_PATH}
 
 echo "-----> STEP 1: Compiling Mono using monolite."
-cd ${CACHE_DIR}/obj/${MONO_VERSION}
+cd ${MONO_BUILD_PATH}
 ./configure --PREFIX=${CACHE_DIR}/mono
 make get-monolite-latest
 make
