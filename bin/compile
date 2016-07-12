@@ -23,7 +23,7 @@ cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
 echo "-----> STEP 1: Compiling Mono using monolite."
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
-./configure --prefix="${MONO_INSTALL_PATH}"
+./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
 make get-monolite-latest
 make
 make install
