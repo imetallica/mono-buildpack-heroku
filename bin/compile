@@ -12,8 +12,8 @@ MONO_BUILD_PATH="${CACHE_DIR}/obj"
 MONO_INSTALL_PATH="/app/vendor/mono"
 NUGET_INSTALL_PATH="/app/vendor/nuget"
 
-MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
-NUGET_DOWNLOAD_BINARY_PATH="https://www.nuget.org/nuget.exe"
+MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
+NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
 
 echo "-----> PRE: Checking if mono already exists."
 if [ ! -d ${MONO_BUILD_PATH} ]; then  
@@ -22,7 +22,7 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   rm -rf ${CACHE_DIR}/*
 
   echo "-----> STEP: Downloading Mono."
-  wget -c ${MONO_DOWNLOAD_PATH}
+  wget -c ${MONO_DOWNLOAD_URL}
   mkdir -p ${MONO_BUILD_PATH}
   mv *.tar.bz2 ${MONO_BUILD_PATH}
   cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
@@ -52,7 +52,7 @@ mono --version
 echo "-----> PRE: Downloading nuget"
 mkdir -p ${NUGET_INSTALL_PATH}
 cd ${NUGET_INSTALL_PATH}
-wget -c ${NUGET_DOWNLOAD_BINARY_PATH} && chmod +x nuget.exe
+wget -c ${NUGET_DOWNLOAD_URL} && chmod +x nuget.exe
 
 echo "-----> PRE: Installing project dependencies"
 cd ${BUILD_PATH}
