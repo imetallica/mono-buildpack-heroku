@@ -64,6 +64,7 @@ mono --version
 if [ ! -d "${FSHARP_BUILD_PATH}" ]; then
   PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
   LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
+  PKG_CONFIG_PATH="${MONO_INSTALL_PATH}/lib/pkgconfig"
   
   echo "-----> STEP: Download F# at ${MONO_BUILD_PATH}"
   cd "${MONO_BUILD_PATH}"
