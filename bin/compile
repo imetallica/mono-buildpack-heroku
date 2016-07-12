@@ -22,7 +22,7 @@ mv *.tar.bz2 ${MONO_BUILD_PATH}
 cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
 echo "-----> STEP 1: Compiling Mono using monolite."
-cd ${MONO_BUILD_PATH}/${MONO_VERSION}
+cd ${MONO_BUILD_PATH}
 ./configure --PREFIX=${MONO_INSTALL_PATH}
 make get-monolite-latest
 make
