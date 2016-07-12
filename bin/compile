@@ -7,10 +7,14 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+echo "-----> BUILD DIR: ${BUILD_DIR}"
+echo "-----> CACHE DIR: ${CACHE_DIR}"
+echo "-----> ENV DIR: ${ENV_DIR}"
+
 export MONO_VERSION="mono-4.4.1.0"
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
-MONO_INSTALL_PATH="/app/vendor/mono"
-NUGET_INSTALL_PATH="/app/vendor/nuget"
+MONO_INSTALL_PATH="${BUILD_DIR}/vendor/mono"
+NUGET_INSTALL_PATH="${BUILD_DIR}/vendor/nuget"
 
 MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
