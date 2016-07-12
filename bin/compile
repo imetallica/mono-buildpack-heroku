@@ -16,7 +16,7 @@ echo "-----> PRE: Clearing cache files."
 rm -rf ${CACHE_DIR}/*
 
 echo "-----> STEP 0: Downloading Mono."
-curl -L ${MONO_DOWNLOAD_PATH} -s | tar zxvf - -C ${CACHE_DIR}/obj/${MONO_VERSION}
+curl -L ${MONO_DOWNLOAD_PATH} -s | tar xvf - -C ${CACHE_DIR}/obj/${MONO_VERSION}
 
 echo "-----> STEP 1: Compiling Mono using monolite."
 cd ${CACHE_DIR}/obj/${MONO_VERSION}
