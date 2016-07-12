@@ -17,7 +17,7 @@ export FSHARP_VERSION="4.0.1.1"
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
 FSHARP_BUILD_PATH="${MONO_BUILD_PATH}/fsharp-${FSHARP_VERSION}"
 
-MONO_INSTALL_PATH="${BUILD_DIR}/vendor/mono"
+MONO_INSTALL_PATH="${BUILD_DIR}/mono"
 NUGET_INSTALL_PATH="${BUILD_DIR}/.nuget"
 
 MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
