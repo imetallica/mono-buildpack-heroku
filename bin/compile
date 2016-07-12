@@ -25,11 +25,14 @@ echo "-----> STEP 1: Compiling Mono using monolite."
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
 ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
 make get-monolite-latest
-make
+make --silent
+
+echo "-----> STEP 2: Installing Mono at ${MONO_INSTALL_PATH}"
 make install
 
-echo "-----> STEP 2: Setting the path."
+echo "-----> STEP 3: Setting the path."
 export PATH="$MONO_INSTALL_PATH:$PATH"
+echo ${PATH}
 
 echo "-----> STEP 3: Testing the installation"
 make mono-test-install
