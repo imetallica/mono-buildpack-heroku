@@ -64,11 +64,14 @@ wget -c ${NUGET_DOWNLOAD_URL} && chmod +x nuget.exe
 
 echo "-----> PRE: Installing project dependencies"
 cd ${BUILD_DIR}
-echo pwd
+pwd
+ls -alr
 cd "/app"
-echo pwd
+pwd
+ls -alr
 cd ${HOME}
-echo pwd
+pwd
+ls -alr
 #mono "${TEMP_NUGET_PATH}/nuget.exe" restore
 
 #echo "-----> PRE: Compiling project"
