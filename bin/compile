@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+MONO_VERSION = "mono-4.4.1.0"
+MONO_BUILD_PATH = "${CACHE_DIR}/obj/${MONO_VERSION}"
+MONO_INSTALL_PATH = "${CACHE_DIR}/mono"
+
+MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
+NUGET_BINARY="https://www.nuget.org/nuget.exe"
+
+echo "-----> PRE: Clearing cache files."
+rm -rf ${CACHE_DIR}/*
+
+echo "-----> STEP 0: Downloading Mono."
+curl -L ${MONO_DOWNLOAD_PATH} -s | tar zxvf - -C ${CACHE_DIR}/obj/${MONO_VERSION}
+
+echo "-----> STEP 1: Compiling Mono using monolite."
+cd ${CACHE_DIR}/obj/${MONO_VERSION}
+./configure --PREFIX=${CACHE_DIR}/mono
+make get-monolite-latest
+make
+make install
+
+echo "-----> STEP 2: Setting the path."
+export PATH="$MONO_INSTALL_PATH:$PATH"
+
+echo "-----> STEP 3: Testing the installation"
+make mono-test-install
+mono --version
