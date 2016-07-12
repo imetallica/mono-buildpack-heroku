@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
+set -e
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
@@ -54,7 +56,8 @@ wget -c ${NUGET_DOWNLOAD_BINARY_PATH} && chmod +x nuget.exe
 echo "-----> PRE: Installing project dependencies"
 cd ${BUILD_PATH}
 ls -alr
-ls -alr ../
+echo "------"
+ls -alr ${HOME}
 #mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
 
 #echo "-----> PRE: Compiling project"
