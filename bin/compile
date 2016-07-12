@@ -14,7 +14,7 @@ MONO_DOWNLOAD_PATH="http://download.mono-project.com/sources/mono/${MONO_VERSION
 NUGET_DOWNLOAD_BINARY_PATH="https://www.nuget.org/nuget.exe"
 
 echo "-----> PRE: Checking if mono already exists."
-if [! -d ${MONO_INSTALL_PATH}]; then  
+if [ ! -d ${MONO_INSTALL_PATH} ]; then  
   echo "-----> Mono it's not installed. Compiling."
   echo "-----> PRE: Clearing cache files."
   rm -rf ${CACHE_DIR}/*
