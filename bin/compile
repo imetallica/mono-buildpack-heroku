@@ -51,10 +51,10 @@ cd ${NUGET_INSTALL_PATH}
 wget -c ${NUGET_DOWNLOAD_BINARY_PATH} && chmod +x nuget.exe
 
 echo "-----> PRE: Installing project dependencies"
-cd ${BUILD_PATH}/vendor
-ls -alr
-mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
-
-echo "-----> PRE: Compiling project"
 cd ${BUILD_PATH}
-xbuild /p:Configuration=Release
+ls -alr
+#mono "${NUGET_INSTALL_PATH}/nuget.exe" restore
+
+#echo "-----> PRE: Compiling project"
+#cd ${BUILD_PATH}
+#xbuild /p:Configuration=Release
