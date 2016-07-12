@@ -30,14 +30,14 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   echo "-----> STEP: (Re)Compiling Mono using monolite."
   cd "${MONO_BUILD_PATH}/mono-4.4.1"
   ./configure --prefix="${MONO_INSTALL_PATH}" --enable-nls=no
-  make get-monolite-latest
-  make
+  make -s get-monolite-latest
+  make -s
 
 fi
 
 echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
-make install
+make -s install
 
 echo "-----> STEP: Setting the path."
 export PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
