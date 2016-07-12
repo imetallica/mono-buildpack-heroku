@@ -16,11 +16,35 @@ export FSHARP_VERSION="4.0.1.1"
 
 MONO_BUILD_PATH="${CACHE_DIR}/obj"
 FSHARP_BUILD_PATH="${MONO_BUILD_PATH}/fsharp-${FSHARP_VERSION}"
-MONO_INSTALL_PATH="${CACHE_DIR}/rel/mono"
+
+MONO_INSTALL_PATH="${BUILD_DIR}/vendor/mono"
 NUGET_INSTALL_PATH="${BUILD_DIR}/.nuget"
 
 MONO_DOWNLOAD_URL="http://download.mono-project.com/sources/mono/${MONO_VERSION}.tar.bz2"
+FSHARP_DOWNLOAD_URL="https://github.com/fsharp/fsharp/archive/${FSHARP_VERSION}.zip"
 NUGET_DOWNLOAD_URL="https://www.nuget.org/nuget.exe"
+
+
+echo "##############################################################################"
+echo "##############################################################################"
+echo "#"
+echo "# MONO: ${MONO_VERSION}"
+echo "# F#: ${FSHARP_VERSION}"
+echo "# MONO BUILD PATH: ${MONO_BUILD_PATH}"
+echo "# F# BUILD PATH: ${FSHARP_BUILD_PATH}"
+echo "# MONO AND F# INSTALL PATH: ${MONO_INSTALL_PATH}"
+echo "# NUGET INSTALL PATH: ${MONO_INSTALL_PATH}"
+echo "#"
+echo "# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #"
+echo "# PLEASE REPORT BUGS AT: https://github.com/imetallica/mono-buildpack-heroku"
+echo "# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #"
+echo "#"
+echo "##############################################################################"
+echo "##############################################################################"
+
+
+# TODO: REMOVE THIS
+rm -rf ${CACHE_DIR}/*
 
 echo "-----> PRE: Checking if mono already exists."
 if [ ! -d ${MONO_BUILD_PATH} ]; then
@@ -34,7 +58,7 @@ if [ ! -d ${MONO_BUILD_PATH} ]; then
   mv *.tar.bz2 ${MONO_BUILD_PATH}
   cd ${MONO_BUILD_PATH} && tar xjf "${MONO_VERSION}.tar.bz2"
 
-  echo "-----> STEP: (Re)Compiling Mono using monolite."
+  echo "-----> STEP: Compiling Mono using monolite."
   cd "${MONO_BUILD_PATH}/mono-4.4.1"
   ./configure --enable-nls=no --prefix="${MONO_INSTALL_PATH}"
   make --silent get-monolite-latest
@@ -45,16 +69,9 @@ echo "-----> STEP: Installing Mono at ${MONO_INSTALL_PATH}"
 cd "${MONO_BUILD_PATH}/mono-4.4.1"
 make --silent install
 
-echo "-----> STEP: Setting symbolic links and paths."
-ln -s "${MONO_INSTALL_PATH}" "/app"
-MONO_LN_DIR="/app/mono"
-
-export PATH="${MONO_LN_DIR}/bin:${PATH}"
-export LD_LIBRARY_PATH="${MONO_LN_DIR}/lib:${LD_LIBRARY_PATH}"
-export PKG_CONFIG_PATH="${MONO_LN_DIR}/lib/pkgconfig"
-
-echo ${PATH}
-echo ${LD_LIBRARY_PATH}
+export PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
+export LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
+export PKG_CONFIG_PATH="${MONO_INSTALL_PATH}/lib/pkgconfig"
 
 echo "-----> STEP: Importing certificates from OS."
 cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
@@ -63,13 +80,9 @@ echo "-----> STEP: Checking the installation and version."
 mono --version
 
 if [ ! -d "${FSHARP_BUILD_PATH}" ]; then
-  PATH="${MONO_INSTALL_PATH}/bin:${PATH}"
-  LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
-  
-  
   echo "-----> STEP: Download F# at ${MONO_BUILD_PATH}"
   cd "${MONO_BUILD_PATH}"
-  wget -c "https://github.com/fsharp/fsharp/archive/${FSHARP_VERSION}.zip"
+  wget -c "${FSHARP_DOWNLOAD_URL}"
   unzip "*.zip"
   
   echo "-----> STEP: Compiling F#"
