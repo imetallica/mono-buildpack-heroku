@@ -71,7 +71,7 @@ export LD_LIBRARY_PATH="${MONO_INSTALL_PATH}/lib:${LD_LIBRARY_PATH}"
 export PKG_CONFIG_PATH="${MONO_INSTALL_PATH}/lib/pkgconfig"
 
 echo "-----> STEP: Importing certificates from OS."
-cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
+${MONO_INSTALL_PATH}/bin/cert-sync --user "/etc/ssl/certs/ca-certificates.crt"
 
 echo "-----> STEP: Checking the installation and version."
 mono --version
