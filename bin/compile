@@ -109,5 +109,5 @@ xbuild /p:Configuration=Release
 echo "-----> STEP: Copying compiled Mono and F# into deploy folder"
 cd ${BUILD_DIR}
 mkdir -p ${MONO_DEPLOY_INSTALL_PATH}
-cp -rf ${MONO_INSTALL_PATH} ${MONO_DEPLOY_INSTALL_PATH}
+cp -Rf ${MONO_INSTALL_PATH} ${MONO_DEPLOY_INSTALL_PATH}
 
