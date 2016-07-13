@@ -1,5 +1,3 @@
-#!/bin/sh
-
-export PATH="$PATH:/app/mono/bin:/usr/local/bin:/usr/bin:/bin" 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/mono/lib"
-export PKG_CONFIG_PATH="/app/mono/lib/pkgconfig"
+export PATH="${HOME}/mono/bin:${PATH}" 
+export LD_LIBRARY_PATH="${HOME}/mono/lib:${LD_LIBRARY_PATH}"
+export PKG_CONFIG_PATH="${HOME}/mono/lib/pkgconfig"
