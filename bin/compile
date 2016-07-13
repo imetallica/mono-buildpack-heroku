@@ -43,13 +43,10 @@ echo "##########################################################################
 echo "##############################################################################"
 
 
-# TODO: REMOVE THIS
-rm -rf ${CACHE_DIR}/*
-
-echo "-----> PRE: Checking if mono already exists."
+echo "-----> STEP: Checking if mono already exists."
 if [ ! -d ${MONO_BUILD_PATH} ]; then
   echo "-----> Mono wasn't downloaded. Downloading."
-  echo "-----> PRE: Clearing cache files."
+  echo "-----> STEP: Clearing cache files."
   rm -rf ${CACHE_DIR}/*
 
   echo "-----> STEP: Downloading Mono."
